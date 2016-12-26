@@ -20,11 +20,6 @@ vlc_instance = vlc.Instance()
 vlc_player = vlc_instance.media_list_player_new()
 
 
-def build_media_path(index):
-	# index = f.index(vlc_player.get_media) + 1
-	return vlc_instance.media_new_path(audioSourcePath + files_list[index])
-
-
 # build a media list from folder
 def build_media_list(list):
 	# Create a new media list
@@ -32,28 +27,16 @@ def build_media_list(list):
 	# Iterate items in list
 	for song in list:
 		vlc_media_list.add_media(vlc_instance.media_new_path(audioSourcePath + song))
-	print(vlc_media_list)
+	# print(vlc_media_list)
 	return vlc_media_list
 
 
-def wait_for_input():
-	print('waiting for input')
-	song = int(input('Next Song?: '))
-	if vlc_player.get_state() is vlc.State.Playing:
-		vlc_player.stop()
-	vlc_player.set_media(build_media_path(song))
-	print(vlc_player.get_media())
-	vlc_player.play()
-
-
-# wait_for_input()
-
 def start_media_playlist():
-	print('starting first song')
-	starting = input('start?: ')
-	print(vlc_player.is_playing())
+	user_input = input('Make your input: ')
+	# print(vlc_player.is_playing())
 	if vlc_player.is_playing() is 0:
 		vlc_player.set_media_list(build_media_list(files_list))
+		print('Initializing song list')
 	else:
 		print('Playing next song')
 		vlc_player.next()
@@ -63,6 +46,6 @@ def start_media_playlist():
 start_media_playlist()
 
 while True:
-	print(vlc_player.get_state())
+	# print(vlc_player.get_state())
 	start_media_playlist()
 	pass
